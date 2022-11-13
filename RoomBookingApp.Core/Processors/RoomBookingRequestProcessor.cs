@@ -1,15 +1,26 @@
-﻿using RoomBookingApp.Core.Models;
+﻿using RoomBookingApp.Core.DataServices;
+using RoomBookingApp.Core.Models;
 
 namespace RoomBookingApp.Core.Processors
 {
     public class RoomBookingRequestProcessor
     {
+        private IRoomBookingService @object;
+
         public RoomBookingRequestProcessor()
         {
         }
 
+        public RoomBookingRequestProcessor(IRoomBookingService @object)
+        {
+            this.@object = @object;
+        }
+
         public RoomBookingResult BookRoom(RoomBookingRequest bookingRequest)
         {
+            if (bookingRequest == null)
+                throw new ArgumentNullException(nameof(bookingRequest));
+
             return new RoomBookingResult
             {
                 FullName = bookingRequest.FullName,
